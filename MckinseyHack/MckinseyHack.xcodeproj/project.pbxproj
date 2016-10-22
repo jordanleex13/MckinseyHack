@@ -12,6 +12,7 @@
 		178DB0D91DB8729600EEBA5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 178DB0D71DB8729600EEBA5B /* Main.storyboard */; };
 		178DB0DB1DB8729600EEBA5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 178DB0DA1DB8729600EEBA5B /* Assets.xcassets */; };
 		178DB0DE1DB8729600EEBA5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 178DB0DC1DB8729600EEBA5B /* LaunchScreen.storyboard */; };
+		E952545CBAC62D35A4A1B07A /* Pods_MckinseyHack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C82396CE8089A5BBCE95A31 /* Pods_MckinseyHack.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,9 @@
 		178DB0DA1DB8729600EEBA5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		178DB0DD1DB8729600EEBA5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		178DB0DF1DB8729600EEBA5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7C82396CE8089A5BBCE95A31 /* Pods_MckinseyHack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MckinseyHack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C309CDAFE7EC458B27FD451F /* Pods-MckinseyHack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MckinseyHack.release.xcconfig"; path = "Pods/Target Support Files/Pods-MckinseyHack/Pods-MckinseyHack.release.xcconfig"; sourceTree = "<group>"; };
+		D3FE66C291AF8856C0823634 /* Pods-MckinseyHack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MckinseyHack.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MckinseyHack/Pods-MckinseyHack.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E952545CBAC62D35A4A1B07A /* Pods_MckinseyHack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,8 @@
 			children = (
 				178DB0D21DB8729600EEBA5B /* MckinseyHack */,
 				178DB0D11DB8729600EEBA5B /* Products */,
+				86DADB70C0705430EA95940C /* Pods */,
+				745C8DDCBD50CED1221A0113 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +71,23 @@
 			path = MckinseyHack;
 			sourceTree = "<group>";
 		};
+		745C8DDCBD50CED1221A0113 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7C82396CE8089A5BBCE95A31 /* Pods_MckinseyHack.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		86DADB70C0705430EA95940C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D3FE66C291AF8856C0823634 /* Pods-MckinseyHack.debug.xcconfig */,
+				C309CDAFE7EC458B27FD451F /* Pods-MckinseyHack.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 178DB0E21DB8729600EEBA5B /* Build configuration list for PBXNativeTarget "MckinseyHack" */;
 			buildPhases = (
+				0AA8ADE91F68F148C871EA28 /* [CP] Check Pods Manifest.lock */,
 				178DB0CC1DB8729600EEBA5B /* Sources */,
 				178DB0CD1DB8729600EEBA5B /* Frameworks */,
 				178DB0CE1DB8729600EEBA5B /* Resources */,
+				E9709C9B83D6BB8EB1722CAC /* [CP] Embed Pods Frameworks */,
+				E553E23C4482F86F0E5914E8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -96,6 +123,7 @@
 				TargetAttributes = {
 					178DB0CF1DB8729600EEBA5B = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 65WSZ6XWG4;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -130,6 +158,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0AA8ADE91F68F148C871EA28 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E553E23C4482F86F0E5914E8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MckinseyHack/Pods-MckinseyHack-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9709C9B83D6BB8EB1722CAC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MckinseyHack/Pods-MckinseyHack-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		178DB0CC1DB8729600EEBA5B /* Sources */ = {
@@ -258,8 +334,10 @@
 		};
 		178DB0E31DB8729600EEBA5B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3FE66C291AF8856C0823634 /* Pods-MckinseyHack.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 65WSZ6XWG4;
 				INFOPLIST_FILE = MckinseyHack/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -271,8 +349,10 @@
 		};
 		178DB0E41DB8729600EEBA5B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C309CDAFE7EC458B27FD451F /* Pods-MckinseyHack.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 65WSZ6XWG4;
 				INFOPLIST_FILE = MckinseyHack/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
