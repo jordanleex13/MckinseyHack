@@ -15,6 +15,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     let locationManager = CLLocationManager()
     let radius: CLLocationDistance = 1000
+    let parser = JSONParser()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         
         self.setRegion();
+        
+        parser.downloadCoordinates()
         
     }
     
@@ -69,6 +72,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 
             
             map.setRegion(region, animated: true)
+            map.showsUserLocation = true
 
         }
         
@@ -88,9 +92,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 //        }
 //    }
     
-    
-
-    func parseJSONtoGetCoordinates
     
 
 
