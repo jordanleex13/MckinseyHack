@@ -64,9 +64,9 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         jobsButton.setBackgroundColor(getResources().getColor(R.color.white));
         jobsButton.setOnClickListener(this);
 
-        ImageButton religionButton = (ImageButton) v.findViewById(R.id.fragment_main_religion_logo);
-        religionButton.setBackgroundColor(getResources().getColor(R.color.white));
-        religionButton.setOnClickListener(this);
+        ImageButton newsButton = (ImageButton) v.findViewById(R.id.fragment_main_news_logo);
+        newsButton.setBackgroundColor(getResources().getColor(R.color.white));
+        newsButton.setOnClickListener(this);
 
         ImageButton communityButton = (ImageButton) v.findViewById(R.id.fragment_main_community_logo);
         communityButton.setBackgroundColor(getResources().getColor(R.color.white));
@@ -101,6 +101,11 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                     Intent intent = new Intent(getContext(), JobActivity.class);
                     startActivity(intent);
                 break;
+
+            case R.id.fragment_main_news_logo:
+                NewsFragment newsFragment = NewsFragment.newInstance();
+                FragmentHelper.swapFragments(getActivity().getSupportFragmentManager(), R.id.activity_main_container,
+                        newsFragment, false, true, null, NewsFragment.TAG);
 
 
             default:

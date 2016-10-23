@@ -64,7 +64,7 @@ public class ParseJobsTask extends AsyncTask<String, Object, Object> {
     public void httpGet(String searchTerm) throws IOException, JSONException {
         String in = "http://api.indeed.com/ads/apisearch?" +
                 "publisher=2863597559522400&format=json&q=" + searchTerm + "&l=london%2C+gb&sort=" +
-                "&radius=&st=&jt=&start=&limit=100&fromage=&filter=&latlong=1&co=gb&chnl=" +
+                "&radius=&st=&jt=&start=&limit=50&fromage=&filter=&latlong=1&co=gb&chnl=" +
                 "&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2";
 
 
@@ -88,6 +88,7 @@ public class ParseJobsTask extends AsyncTask<String, Object, Object> {
 
             //Get the instance of JSONArray that contains JSONObjects
             JSONArray jsonArray = reader.optJSONArray("results");
+            Log.e(TAG, "Num of jobs is " + String.valueOf(jsonArray.length()));
             for(int i=0; i < jsonArray.length(); i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
