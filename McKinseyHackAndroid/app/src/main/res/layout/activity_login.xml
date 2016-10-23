@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:hint="First Name"
             android:fontFamily="sans-serif-light"
-            android:layout_margin="@dimen/small_text"/>
+            android:layout_margin="@dimen/medium_margin"/>
 
         <EditText
             android:layout_width="match_parent"

@@ -8,8 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-import com.jordanleex13.mckinseyhackandroid.Helpers.ParseJobsTask;
-
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -26,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
         }
 
-        new ParseJobsTask().execute();
+        //new ParseJobsTask().execute();
 
         final Context mContext = this;
         Button button = (Button) findViewById(R.id.activity_login_button);

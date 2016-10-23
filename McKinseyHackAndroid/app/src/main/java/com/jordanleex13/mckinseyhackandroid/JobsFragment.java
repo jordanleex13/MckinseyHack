@@ -1,6 +1,8 @@
 package com.jordanleex13.mckinseyhackandroid;
 
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,14 +11,19 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.jordanleex13.mckinseyhackandroid.Helpers.FragmentHelper;
+import com.jordanleex13.mckinseyhackandroid.Helpers.ParseJobsTask;
 import com.jordanleex13.mckinseyhackandroid.Managers.JobManager;
 import com.jordanleex13.mckinseyhackandroid.Models.Job;
 
@@ -33,7 +40,6 @@ public class JobsFragment extends Fragment implements RVAdapterJobs.ViewHolder.O
     private RecyclerView mRecyclerView;
 
     // Adapters
-    private ArrayAdapter<String> mSpinnerAdapter;
     private RVAdapterJobs mRVAdapter;
 
     public JobsFragment() {
@@ -52,6 +58,9 @@ public class JobsFragment extends Fragment implements RVAdapterJobs.ViewHolder.O
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
 
         }
@@ -64,7 +73,7 @@ public class JobsFragment extends Fragment implements RVAdapterJobs.ViewHolder.O
         View v = inflater.inflate(R.layout.fragment_jobs, container, false);
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.fragment_jobs_recycler);
-        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -74,6 +83,56 @@ public class JobsFragment extends Fragment implements RVAdapterJobs.ViewHolder.O
         mRecyclerView.setAdapter(mRVAdapter);
 
         return v;
+    }
+
+
+    private SearchView searchView = null;
+    private SearchView.OnQueryTextListener queryTextListener;
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.jobs_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.jobs_menu_search);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        if (searchItem != null) {
+            searchView = (SearchView) searchItem.getActionView();
+            //searchView.setBackgroundColor(getResources().getColor(R.color.white));
+        }
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+            queryTextListener = new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    Log.i("onQueryTextChange", newText);
+
+                    return true;
+                }
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Log.i("onQueryTextSubmit", query);
+                    new ParseJobsTask(mRVAdapter).execute(query);
+                    hideKeyboard();
+                    return true;
+                }
+            };
+            searchView.setOnQueryTextListener(queryTextListener);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.jobs_menu_search:
+                Toast.makeText(getContext(), "HI", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+
+        return true;
     }
 
     @Override
@@ -92,5 +151,12 @@ public class JobsFragment extends Fragment implements RVAdapterJobs.ViewHolder.O
         startActivity(browserIntent);
 
         Toast.makeText(getContext(), temp.getJobTitle(), Toast.LENGTH_SHORT).show();
+    }
+
+
+
+    private void hideKeyboard(){
+        InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }
