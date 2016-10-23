@@ -11,7 +11,6 @@ import android.widget.EditText;
 import com.jordanleex13.mckinseyhackandroid.Helpers.RunnableParseJobs;
 
 
-
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText firstName;
@@ -24,7 +23,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Toolbar toolBar = (Toolbar) findViewById(R.id.activity_login_toolbar);
 
         if (toolBar != null) {
-            toolBar.setTitle("Refugee Resources");
+            toolBar.setTitle("dönum");
+            //toolBar.setNavigationIcon(R.mipmap.donum_app_logo);
             toolBar.setTitleTextColor(getResources().getColor(R.color.white));
             setSupportActionBar(toolBar);
 
