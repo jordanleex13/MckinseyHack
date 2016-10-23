@@ -1,11 +1,9 @@
 package com.jordanleex13.mckinseyhackandroid.Helpers;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
-import com.jordanleex13.mckinseyhackandroid.Models.Job;
 import com.jordanleex13.mckinseyhackandroid.Managers.JobManager;
-import com.jordanleex13.mckinseyhackandroid.RVAdapterJobs;
+import com.jordanleex13.mckinseyhackandroid.Models.Job;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -21,55 +19,37 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
- * Created by Jordan on 2016-10-22.
+ * Created by Jordan on 2016-10-23.
  */
 
-public class ParseJobsTask extends AsyncTask<String, Object, Object> {
+public class RunnableParseJobs implements Runnable {
 
-    public static final String TAG = ParseJobsTask.class.getSimpleName();
+    private String mQuery;
+    private static final String TAG = RunnableParseJobs.class.getSimpleName();
 
-    private RVAdapterJobs mAdapter;
-    public ParseJobsTask(RVAdapterJobs rvAdapterJobs) {
-        mAdapter = rvAdapterJobs;
+    public RunnableParseJobs(String query) {
+        mQuery = query;
+
+        JobManager.setSearchTerm(mQuery);
+
     }
-
     @Override
-    protected Object doInBackground(String... params) {
-        JobManager.clearList();
+    public void run() {
         try {
-            httpGet(params[0]);
-        } catch (IOException e) {
-            e.printStackTrace();
+            httpGet();
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return null;
     }
 
-    @Override
-    protected void onProgressUpdate(Object... values) {
-        mAdapter.updateArrayList(JobManager.getList());
-        mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected void onPostExecute(Object o) {
-        mAdapter.updateArrayList(JobManager.getList());
-        mAdapter.notifyDataSetChanged();
-    }
-
-    /**
-     * Uses Indeed API to get JSON files online and parses them into the Job Data structure
-     * @throws IOException
-     * @throws JSONException
-     */
-    public void httpGet(String searchTerm) throws IOException, JSONException {
+    public void httpGet() throws JSONException, IOException {
         String in = "http://api.indeed.com/ads/apisearch?" +
-                "publisher=2863597559522400&format=json&q=" + searchTerm + "&l=london%2C+gb&sort=" +
+                "publisher=2863597559522400&format=json&q=" + mQuery + "&l=london%2C+gb&sort=" +
                 "&radius=&st=&jt=&start=&limit=50&fromage=&filter=&latlong=1&co=gb&chnl=" +
                 "&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2";
 
-        JobManager.setSearchTerm(searchTerm);
 
         HttpClient httpclient = new DefaultHttpClient();
         HttpResponse response = httpclient.execute(new HttpGet(in));
@@ -108,8 +88,6 @@ public class ParseJobsTask extends AsyncTask<String, Object, Object> {
 
                 Job curr = new Job(jobTitle, company, city, state, country, description, url, latitude, longitude);
                 JobManager.addJob(curr);
-
-                publishProgress();
 
             }
 

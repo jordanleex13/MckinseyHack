@@ -27,10 +27,13 @@
         android:layout_below="@id/activity_login_toolbar">
 
         <EditText
+            android:id="@+id/activity_login_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="First Name"
             android:fontFamily="sans-serif-light"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
             android:layout_margin="@dimen/medium_margin"/>
 
         <EditText
@@ -38,12 +41,26 @@
             android:layout_height="wrap_content"
             android:hint="Last Name"
             android:fontFamily="sans-serif-light"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
             android:layout_margin="@dimen/medium_margin"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Date of Birth (YYYY/MM/DD)"
+            android:inputType="date"
             android:fontFamily="sans-serif-light"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:layout_margin="@dimen/medium_margin"/>
+
+        <EditText
+            android:id="@+id/activity_login_preferred_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Preferred Job"
+            android:fontFamily="sans-serif-light"
+            android:singleLine="true"
             android:layout_margin="@dimen/medium_margin"/>
     </LinearLayout>
 

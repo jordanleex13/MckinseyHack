@@ -10,22 +10,24 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
-public class JobActivity extends AppCompatActivity {
+public class JobsActivity extends AppCompatActivity {
 
     public ViewPager mViewPager;
     public SectionsPagerAdapter mSectionsPagerAdapter;
 
-    private static final String[] tabs = {"Jobs", "Map"};
+    private static final String[] tabs = {"Job Listings / قوائم الوظائف", "Map / خريطة"};
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_job);
+        setContentView(R.layout.activity_jobs);
 
         Toolbar toolBar = (Toolbar) findViewById(R.id.activity_job_toolbar);
 
         if (toolBar != null) {
-            toolBar.setTitle("Jobs");
+            //toolBar.setTitle("Jobs");
             toolBar.setTitleTextColor(getResources().getColor(R.color.white));
             setSupportActionBar(toolBar);
 
@@ -54,6 +56,7 @@ public class JobActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
     public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -89,4 +92,5 @@ public class JobActivity extends AppCompatActivity {
 
         }
     }
+
 }

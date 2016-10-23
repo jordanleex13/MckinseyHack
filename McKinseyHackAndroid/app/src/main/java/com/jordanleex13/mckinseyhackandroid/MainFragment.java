@@ -98,14 +98,14 @@ public class MainFragment extends Fragment implements View.OnClickListener{
 //                JobsFragment newFragment = JobsFragment.newInstance();
 //                FragmentHelper.swapFragments(getActivity().getSupportFragmentManager(), R.id.activity_main_container,
 //                        newFragment, false, true, null, JobsFragment.TAG);
-                    Intent intent = new Intent(getContext(), JobActivity.class);
+                    Intent intent = new Intent(getContext(), JobsActivity.class);
                     startActivity(intent);
                 break;
 
-            case R.id.fragment_main_news_logo:
-                NewsFragment newsFragment = NewsFragment.newInstance();
-                FragmentHelper.swapFragments(getActivity().getSupportFragmentManager(), R.id.activity_main_container,
-                        newsFragment, false, true, null, NewsFragment.TAG);
+//            case R.id.fragment_main_news_logo:
+//                NewsFragment newsFragment = NewsFragment.newInstance();
+//                FragmentHelper.swapFragments(getActivity().getSupportFragmentManager(), R.id.activity_main_container,
+//                        newsFragment, false, true, null, NewsFragment.TAG);
 
 
             default:

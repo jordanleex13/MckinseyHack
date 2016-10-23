@@ -20,12 +20,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.jordanleex13.mckinseyhackandroid.Helpers.FragmentHelper;
 import com.jordanleex13.mckinseyhackandroid.Helpers.ParseJobsTask;
 import com.jordanleex13.mckinseyhackandroid.Managers.JobManager;
 import com.jordanleex13.mckinseyhackandroid.Models.Job;
+import com.jordanleex13.mckinseyhackandroid.Models.SearchEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -33,9 +35,13 @@ import com.jordanleex13.mckinseyhackandroid.Models.Job;
  * Use the {@link JobsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class JobsFragment extends Fragment implements RVAdapterJobs.ViewHolder.OnJobClickedListener{
+public class JobsFragment extends Fragment implements RVAdapterJobs.ViewHolder.OnJobClickedListener {
 
     public static final String TAG = JobsFragment.class.getSimpleName();
+
+    private SearchView searchView = null;
+    private SearchView.OnQueryTextListener queryTextListener;
+
 
     private RecyclerView mRecyclerView;
 
@@ -55,15 +61,15 @@ public class JobsFragment extends Fragment implements RVAdapterJobs.ViewHolder.O
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setHasOptionsMenu(true);
-        if (getArguments() != null) {
 
-        }
+        //callback = (OnSearchClickedListener) this;
+
+
     }
 
     @Override
@@ -86,8 +92,7 @@ public class JobsFragment extends Fragment implements RVAdapterJobs.ViewHolder.O
     }
 
 
-    private SearchView searchView = null;
-    private SearchView.OnQueryTextListener queryTextListener;
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -114,6 +119,10 @@ public class JobsFragment extends Fragment implements RVAdapterJobs.ViewHolder.O
                 public boolean onQueryTextSubmit(String query) {
                     Log.i("onQueryTextSubmit", query);
                     new ParseJobsTask(mRVAdapter).execute(query);
+
+                    FragmentHelper.setUpActionBar(getContext(), true, query);
+                    EventBus.getDefault().post(new SearchEvent());
+
                     hideKeyboard();
                     return true;
                 }
@@ -126,7 +135,7 @@ public class JobsFragment extends Fragment implements RVAdapterJobs.ViewHolder.O
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.jobs_menu_search:
-                Toast.makeText(getContext(), "HI", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "HI", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -138,7 +147,7 @@ public class JobsFragment extends Fragment implements RVAdapterJobs.ViewHolder.O
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        FragmentHelper.setUpActionBar(getActivity(), true, "Jobs");
+        FragmentHelper.setUpActionBar(getActivity(), true, JobManager.getSearchTerm());
     }
 
     @Override
@@ -150,13 +159,13 @@ public class JobsFragment extends Fragment implements RVAdapterJobs.ViewHolder.O
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(temp.getUrl()));
         startActivity(browserIntent);
 
-        Toast.makeText(getContext(), temp.getJobTitle(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), temp.getJobTitle(), Toast.LENGTH_SHORT).show();
     }
-
 
 
     private void hideKeyboard(){
         InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
+
 }

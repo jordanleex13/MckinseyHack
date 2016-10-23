@@ -1,15 +1,21 @@
 package com.jordanleex13.mckinseyhackandroid;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
-public class LoginActivity extends AppCompatActivity {
+import com.jordanleex13.mckinseyhackandroid.Helpers.RunnableParseJobs;
 
+
+
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+
+    EditText firstName;
+    EditText preferredJob;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,19 +30,28 @@ public class LoginActivity extends AppCompatActivity {
 
         }
 
-        //new ParseJobsTask().execute();
-
-        final Context mContext = this;
         Button button = (Button) findViewById(R.id.activity_login_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, MainActivity.class);
-                startActivity(intent);
+        button.setOnClickListener(this);
 
-            }
-        });
+        firstName = (EditText) findViewById(R.id.activity_login_first_name);
+        preferredJob = (EditText) findViewById(R.id.activity_login_preferred_job);
+
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if (preferredJob.getText().toString().equals("")) {
+            preferredJob.setError("This field cannot be left blank");
+
+        } else {
+
+            // by default fill, the job list with whatever the person put in
+            new Thread(new RunnableParseJobs(preferredJob.getText().toString())).start();
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+
+    }
 }

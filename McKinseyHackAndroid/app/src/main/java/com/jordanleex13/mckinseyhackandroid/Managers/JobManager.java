@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public class JobManager {
 
     private static ArrayList<Job> jobArrayList = new ArrayList<>();
+    private static String searchTerm;
+
 
     private JobManager() {
 
@@ -18,6 +20,9 @@ public class JobManager {
 
     public static ArrayList<Job> getList() {
         return jobArrayList;
+    }
+    public static int getSize() {
+        return jobArrayList.size();
     }
     public static void addJob(Job j) {
         jobArrayList.add(j);
@@ -30,5 +35,15 @@ public class JobManager {
     }
     public static void clearList() {
         jobArrayList.clear();
+    }
+
+
+
+
+    public static String getSearchTerm() {
+        return searchTerm;
+    }
+    public static void setSearchTerm(String s) {
+        searchTerm = s;
     }
 }
